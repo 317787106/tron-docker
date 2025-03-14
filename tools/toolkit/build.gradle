@@ -1,6 +1,5 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
-    id 'java'
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
@@ -73,10 +72,10 @@ jar {
 
 checkstyle {
     toolVersion = '8.41'
-    configFile = file("../../conf/checkstyle/checkStyle.xml")
+    configFile = file("../../conf/checkstyle/checkStyleAll.xml")
 }
 
-task checkstyleToolkitMain(type: Checkstyle) {
+tasks.register('checkstyleMain2', Checkstyle) {
     source 'src/main/java'
     include '**/*.java'
     exclude '**/generated/**'
@@ -84,7 +83,7 @@ task checkstyleToolkitMain(type: Checkstyle) {
     ignoreFailures = false
 }
 
-task checkstyleToolkitTest(type: Checkstyle) {
+tasks.register('checkstyleTest2', Checkstyle) {
     source 'src/test/java'
     include '**/*.java'
     exclude '**/generated/**'
@@ -92,4 +91,4 @@ task checkstyleToolkitTest(type: Checkstyle) {
     ignoreFailures = false
 }
 
-check.dependsOn checkstyleToolkitMain, checkstyleToolkitTest
+check.dependsOn checkstyleMain2, checkstyleTest2
