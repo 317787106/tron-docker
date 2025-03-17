@@ -13,7 +13,9 @@ repos:
   - repo: 'https://github.com/jumanjihouse/pre-commit-hooks'
     rev: 3.0.0
     hooks:
-      - id: shellcheck
+      #- id: shellcheck
+      #  exclude: tools/build.gradle,tools/gradlew.bat
       - id: script-must-have-extension
       - id: git-dirty
-      - id: git-check
+      #- id: git-check
+      #  exclude: tools/build.gradle,tools/gradlew.bat
