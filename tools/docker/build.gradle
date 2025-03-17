@@ -44,7 +44,7 @@ def getGitCommitDetails(length = 8) {
 
 // http://label-schema.org/rc1/
 // using the RFC3339 format "2016-04-12T23:20:50.52Z"
-def buildTime() {
+static def buildTime() {
     def df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
     df.setTimeZone(TimeZone.getTimeZone("UTC"))
     return df.format(new Date())
@@ -63,11 +63,11 @@ tasks.register('sourceDocker') {
 
     doLast {
         copy {
-            from file("${rootDir}/../docker/Dockerfile")
+            from file("${rootDir}/docker/Dockerfile")
             into(dockerBuildDir)
         }
         copy {
-            from file("${rootDir}/../docker/docker-entrypoint.sh")
+            from file("${rootDir}/docker/docker-entrypoint.sh")
             into "${dockerBuildDir}"
         }
         exec {
@@ -91,7 +91,7 @@ tasks.register('sourceDocker') {
 
 tasks.register('testDocker') {
     dependsOn sourceDocker
-    def dockerReportsDir = "${rootDir}/../docker/reports/"
+    def dockerReportsDir = "${rootDir}/docker/reports/"
 
     doFirst {
         new File(dockerReportsDir).mkdir()
@@ -100,7 +100,7 @@ tasks.register('testDocker') {
     doLast {
         exec {
             def image = "${dockerImageName}:${dockerBuildVersion}"
-            workingDir "${rootDir}/../docker"
+            workingDir "${rootDir}/docker"
             executable shell
             args "-c", "./test.sh ${image}"
         }

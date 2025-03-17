@@ -1,8 +1,3 @@
-//version = "1.0.0"
-//tasks.named('jar') {
-//    enabled = false
-//}
-
 allprojects {
     group = 'io.github.tronprotocol'
     version = '0.1'
@@ -13,14 +8,12 @@ subprojects {
     apply plugin: 'java-library'
 }
 
-//task copyToParent(type: Copy) {
+//tasks.register('copyToParent', Copy) {
 //    into "$buildDir/libs"
 //    subprojects.each { subproject ->
 //        from(subproject.tasks.withType(Jar))
 //    }
 //}
-//
-//build.finalizedBy(copyToParent)
 
 gradle.buildFinished {
     if (project.hasProperty('cleanSubBuild')) {
@@ -31,7 +24,3 @@ gradle.buildFinished {
         }
     }
 }
-
-//tasks.register('wrapper', Wrapper) {
-//    gradleVersion = '7.6'
-//}
