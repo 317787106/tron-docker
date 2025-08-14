@@ -3,10 +3,13 @@ services:
   node-exporter:
     image: quay.io/prometheus/node-exporter:latest
     container_name: node-exporter
-    ports:
-      - "9100:9100"  # For metric collection
+    network_mode: "host"
+    pid: "host"
     volumes:
-      - "./:/host:ro,rslave"
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
     command:
-      - "--path.rootfs=/host"
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
     restart: unless-stopped
